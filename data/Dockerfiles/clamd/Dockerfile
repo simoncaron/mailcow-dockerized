@@ -3,6 +3,7 @@ FROM debian:buster-slim
 LABEL maintainer "André Peters <andre.peters@servercow.de>"
 
 ARG CLAMAV=0.103.0
+ARG TINI=0.19.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
@@ -57,5 +58,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY clamd.sh ./
 COPY tini /sbin/tini
+
+RUN wget https://github.com/krallin/tini/releases/download/v${TINI}/tini-$(dpkg --print-architecture) -O /sbin/tini \
+  && chmod +x /sbin/tini
 
 CMD ["/sbin/tini", "-g", "--", "/clamd.sh"]

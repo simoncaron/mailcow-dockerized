@@ -77,6 +77,7 @@ RUN groupadd -g 5000 vmail \
   mariadb-client \
   procps \
   python3-pip \
+  python3-setuptools \ 
   redis-server \
   supervisor \
   syslog-ng \
@@ -86,7 +87,7 @@ RUN groupadd -g 5000 vmail \
   && echo "deb https://repo.dovecot.org/ce-${DOVECOT}/debian/buster buster main" > /etc/apt/sources.list.d/dovecot.list \
   && apt-get update \
   && apt-get -y --no-install-recommends install \
-  dovecot-lua \
+  dovecot-auth-lua \
   dovecot-managesieved \
   dovecot-sieve \
   dovecot-lmtpd \
